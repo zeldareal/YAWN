@@ -6,10 +6,16 @@
 
 > yes, i know this looks unprofessional, i couldn't care less.
 
+
+
+
 ## why does this exist?
 
 because i wanted harpoon, oil, and everything declared in nix. 
 that's it. that's the pitch.
+
+
+
 
 
 
@@ -23,7 +29,13 @@ probably nothing! but it's:
 - ✅ honest about what it is
 
 
+
+
+
 ## showcase
+
+
+
 
 ### Telescope + Fuzzy Finding
 
@@ -35,6 +47,9 @@ probably nothing! but it's:
 
 ### Oil.nvim
 ![Oil](screenshots/oil.png)
+
+
+
 
 ## installation
 
