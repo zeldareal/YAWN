@@ -215,6 +215,11 @@
         servers = {
           lua_ls.enable = true;
           nixd.enable = true;
+          rust_analyzer.enable = true;
+          pyright.enable = true;
+          clangd.enable = true;
+          jdtls.enable = true;
+          ts_ls.enable = true;
         };
       };
 
