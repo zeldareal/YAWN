@@ -18,10 +18,10 @@ that's it. that's the pitch.
 ## what makes this different?
 
 probably nothing! but it's:
-- ✅ fully reproducible (it's nix)
-- ✅ actually my daily driver 
-- ✅ not trying to be an IDE
-- ✅ honest about what it is
+-  fully reproducible (it's nix)
+-  actually my daily driver 
+-  not trying to be an IDE
+-  honest about what it is
 
 
 <br>
