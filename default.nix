@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -17,7 +18,7 @@
       tabstop = 2;
       signcolumn = "yes";
       updatetime = 250;
-      timeoutlen = 300;
+      timeoutlen = 200;
       cursorline = true;
       scrolloff = 8;
       sidescrolloff = 8;
@@ -37,7 +38,7 @@
         settings = {
           snippet.expand = ''
             function(args)
-              require('luasnip').lsp_expand(args.body) 
+              require('luasnip').lsp_expand(args.body)
             end
           '';
           sources = [
@@ -73,22 +74,47 @@
       neo-tree = {
         enable = true;
         settings = {
-        close_if_last_window = true;
-        window = {
-          width = 30;
-          position = "left";
+          close_if_last_window = true;
+          window = {
+            width = 30;
+            position = "left";
+          };
         };
       };
+
+      oil = {
+        enable = true;
+        settings = {
+          view_options.show_hidden = true;
+        };
       };
+
+      harpoon = {
+        enable = true;
+        enableTelescope = true;
+      };
+
+      illuminate = {
+        enable = true;
+        settings = {
+          underCursor = true;
+          filetypesDenylist = [
+            "neo-tree"
+            "alpha"
+            "toggleterm"
+          ];
+        };
+      };
+
       toggleterm = {
         enable = true;
         settings = {
           direction = "float";
           float_opts = {
-          border = "curved";
-          width = 120;
-          height = 30;
-        };
+            border = "curved";
+            width = 120;
+            height = 30;
+          };
           open_mapping = "[[<C-\\>]]";
         };
       };
@@ -96,32 +122,32 @@
       telescope = {
         enable = true;
         extensions = {
-         fzf-native.enable = true;
-  };
-  keymaps = {
-    "<leader>ff" = "find_files";
-    "<leader>fg" = "live_grep";
-    "<leader>fb" = "buffers";
-    "<leader>fh" = "help_tags";
-    "<leader>/" = {
+          fzf-native.enable = true;
+        };
+        keymaps = {
+          "<leader>ff" = "find_files";
+          "<leader>fg" = "live_grep";
+          "<leader>fb" = "buffers";
+          "<leader>fh" = "help_tags";
+          "<leader>/" = {
             action = "current_buffer_fuzzy_find";
             options.desc = "Search in current buffer";
           };
-  };
-  settings = {
-    defaults = {
-      vimgrep_arguments = [
-        "rg"
-        "--color=never"
-        "--no-heading"
-        "--with-filename"
-        "--line-number"
-        "--column"
-        "--smart-case"
-      ];
-    };
-  };
-};
+        };
+        settings = {
+          defaults = {
+            vimgrep_arguments = [
+              "rg"
+              "--color=never"
+              "--no-heading"
+              "--with-filename"
+              "--line-number"
+              "--column"
+              "--smart-case"
+            ];
+          };
+        };
+      };
 
       gitsigns = {
         enable = true;
@@ -136,7 +162,27 @@
 
       which-key = {
         enable = true;
-        settings.delay = 100;
+        settings = {
+          delay = 100;
+          spec = [
+            {
+              __unkeyed-1 = "<leader>1";
+              hidden = true;
+            }
+            {
+              __unkeyed-1 = "<leader>2";
+              hidden = true;
+            }
+            {
+              __unkeyed-1 = "<leader>3";
+              hidden = true;
+            }
+            {
+              __unkeyed-1 = "<leader>4";
+              hidden = true;
+            }
+          ];
+        };
       };
 
       trouble.enable = true;
@@ -146,11 +192,11 @@
       conform-nvim = {
         enable = true;
         settings = {
-          formatOnSave = {
+          format_on_save = {
             lspFallback = true;
             timeoutMs = 500;
           };
-          formattersByFt = {
+          formatters_by_ft = {
             lua = [ "stylua" ];
             nix = [ "nixfmt" ];
           };
@@ -212,10 +258,10 @@
     };
 
     extraConfigLua = ''
-      local alpha = require('alpha')
-      local dashboard = require('alpha.themes.dashboard')
-           
-      dashboard.section.header.val = {
+                local alpha = require('alpha')
+                local dashboard = require('alpha.themes.dashboard')
+
+                dashboard.section.header.val = {
         "                                                     ",
         "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
         "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
@@ -224,30 +270,29 @@
         "  ███████╗███████╗███████╗██████╔╝██║  ██║ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
         "  ╚══════╝╚══════╝╚══════╝╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
         "                                                     ",
+        "                 // yet another nvim config //          ",
       }
-      
-      alpha.setup(dashboard.opts)
+                alpha.setup(dashboard.opts)
 
-       local Terminal = require('toggleterm.terminal').Terminal
-  local lazygit = Terminal:new({
-    cmd = "lazygit",
-    direction = "float",
-    hidden = true,
-    float_opts = {
-      border = "curved",
-    },
-    on_open = function(term)
-      vim.cmd("startinsert!")
-    end,
-  })
+                 local Terminal = require('toggleterm.terminal').Terminal
+            local lazygit = Terminal:new({
+              cmd = "lazygit",
+              direction = "float",
+              hidden = true,
+              float_opts = {
+                border = "curved",
+              },
+              on_open = function(term)
+                vim.cmd("startinsert!")
+              end,
+            })
 
-  function _lazygit_toggle()
-    lazygit:toggle()
-  end
+            function _lazygit_toggle()
+              lazygit:toggle()
+            end
 
-  vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
-'';
-    
+            vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+    '';
 
     extraPackages = with pkgs; [
       stylua
@@ -257,6 +302,7 @@
       ripgrep
       fd
       lazygit
+
     ];
 
     keymaps = [
@@ -268,9 +314,47 @@
       }
       {
         mode = "n";
-        key = "<leader>xx";
-        action = "<cmd>Trouble diagnostics toggle<cr>";
-        options.desc = "Toggle diagnostics";
+        key = "<leader>o";
+        action = "<cmd>Oil<cr>";
+        options.desc = "Open parent directory";
+      }
+
+      # Harpoon keymaps
+      {
+        mode = "n";
+        key = "<leader>a";
+        action = "<cmd>lua require('harpoon'):list():append()<cr>";
+        options.desc = "Harpoon add file";
+      }
+      {
+        mode = "n";
+        key = "<leader>h";
+        action = "<cmd>lua local harpoon = require('harpoon'); harpoon.ui:toggle_quick_menu(harpoon:list())<cr>";
+        options.desc = "Harpoon quick menu";
+      }
+      {
+        mode = "n";
+        key = "<leader>1";
+        action = "<cmd>lua require('harpoon'):list():select(1)<cr>";
+        options.desc = "Harpoon file 1";
+      }
+      {
+        mode = "n";
+        key = "<leader>2";
+        action = "<cmd>lua require('harpoon'):list():select(2)<cr>";
+        options.desc = "Harpoon file 2";
+      }
+      {
+        mode = "n";
+        key = "<leader>3";
+        action = "<cmd>lua require('harpoon'):list():select(3)<cr>";
+        options.desc = "Harpoon file 3";
+      }
+      {
+        mode = "n";
+        key = "<leader>4";
+        action = "<cmd>lua require('harpoon'):list():select(4)<cr>";
+        options.desc = "Harpoon file 4";
       }
     ];
   };
