@@ -31,14 +31,13 @@
     };
 
     plugins = {
-      # === CODING ===
       cmp = {
         enable = true;
         autoEnableSources = true;
         settings = {
           snippet.expand = ''
             function(args)
-              require('luasnip').lsp_expand(args.body)
+              require('luasnip').lsp_expand(args.body) 
             end
           '';
           sources = [
@@ -70,7 +69,6 @@
         };
       };
 
-      # === EDITOR ===
       neo-tree = {
         enable = true;
         settings = {
@@ -185,10 +183,6 @@
         };
       };
 
-      trouble.enable = true;
-      flash.enable = true;
-
-      # === FORMATTING ===
       conform-nvim = {
         enable = true;
         settings = {
@@ -203,27 +197,19 @@
         };
       };
 
-      # === LINTING ===
       lint = {
         enable = true;
         lintersByFt = { };
       };
 
-      # === LSP ===
       lsp = {
         enable = true;
         servers = {
           lua_ls.enable = true;
           nixd.enable = true;
-          rust_analyzer.enable = true;
-          pyright.enable = true;
-          clangd.enable = true;
-          jdtls.enable = true;
-          ts_ls.enable = true;
         };
       };
 
-      # === TREESITTER ===
       treesitter = {
         enable = true;
         nixGrammars = true;
@@ -233,7 +219,6 @@
         };
       };
 
-      # === UI ===
       lualine = {
         enable = true;
         settings.options.theme = "auto";
@@ -258,15 +243,14 @@
       noice.enable = true;
       notify.enable = true;
 
-      # === UTIL ===
       persistence.enable = true;
     };
 
     extraConfigLua = ''
-                local alpha = require('alpha')
-                local dashboard = require('alpha.themes.dashboard')
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
 
-                dashboard.section.header.val = {
+      dashboard.section.header.val = {
         "                                                     ",
         "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
         "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
@@ -277,26 +261,32 @@
         "                                                     ",
         "                 // yet another nvim config //          ",
       }
-                alpha.setup(dashboard.opts)
 
-                 local Terminal = require('toggleterm.terminal').Terminal
-            local lazygit = Terminal:new({
-              cmd = "lazygit",
-              direction = "float",
-              hidden = true,
-              float_opts = {
-                border = "curved",
-              },
-              on_open = function(term)
-                vim.cmd("startinsert!")
-              end,
-            })
+      alpha.setup(dashboard.opts)
 
-            function _lazygit_toggle()
-              lazygit:toggle()
-            end
+      local Terminal = require('toggleterm.terminal').Terminal
+      local lazygit = Terminal:new({
+        cmd = "lazygit",
+        direction = "float",
+        hidden = true,
+        float_opts = { border = "curved" },
+        on_open = function(term)
+          vim.cmd("startinsert!")
+        end,
+      })
 
-            vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+      function _lazygit_toggle()
+        lazygit:toggle()
+      end
+
+      vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "VeryLazy",
+        callback = function()
+          -- any plugin-dependent code here
+        end
+      })
     '';
 
     extraPackages = with pkgs; [
@@ -307,7 +297,6 @@
       ripgrep
       fd
       lazygit
-
     ];
 
     keymaps = [
@@ -323,8 +312,6 @@
         action = "<cmd>Oil<cr>";
         options.desc = "Open parent directory";
       }
-
-      # Harpoon keymaps
       {
         mode = "n";
         key = "<leader>a";
