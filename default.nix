@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  #gitlab commit testty
+  #gitlab commit testtty
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
