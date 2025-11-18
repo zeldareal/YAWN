@@ -1,1 +1,0 @@
-/nix/store/8lbkppdjn9zrzdarf9wgx44yg1klszhn-home-manager-files/.config/fish/functions/nixcommit.fish
